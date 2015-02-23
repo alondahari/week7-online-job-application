@@ -35,6 +35,14 @@ app.get('/form-submitted', function(req, res){
 	res.render('form-submitted')
 })
 
+app.get('/delete-applicant/:id', function(req, res){
+	console.log(req.params.id);
+
+	Applicant.remove({_id: req.params.id}, function(){
+		res.redirect('/applicants')
+	})
+})
+
 // creates and applicant
 app.post('/applicant', function(req, res){
 	var applicant = new Applicant(req.body)
