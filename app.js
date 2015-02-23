@@ -13,8 +13,8 @@ var Applicant = mongoose.model('Applicant', {
 	name: String,
 	bio: String,
 	skills: String,
-	experience: Number,
-	reason: String
+	years: Number,
+	why: String
 })
 
 app.get('/', function(req, res) {
@@ -23,7 +23,12 @@ app.get('/', function(req, res) {
 
 // displays a list of applicants
 app.get('/applicants', function(req, res){
-	res.render('applicants')
+	Applicant.find({}, function(err, applicants){
+		if (!err) {
+			res.render('applicants', {applicants: applicants})
+		}
+		
+	})
 });
 
 app.get('/form-submitted', function(req, res){
