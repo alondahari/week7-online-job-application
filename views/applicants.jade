@@ -5,7 +5,8 @@ block content
 		h1 Applicants
 		each applicant in applicants
 			ul#applications.list-unstyled
-				li Name: #{applicant.name}
+				li Name: 
+					a(href="/applicant/#{applicant.id}")= applicant.name
 				li Bio: #{applicant.bio}
 				li skills: #{applicant.skills}
 				li Years of Experience: #{applicant.years}

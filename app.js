@@ -36,11 +36,18 @@ app.get('/form-submitted', function(req, res){
 })
 
 app.get('/delete-applicant/:id', function(req, res){
-	console.log(req.params.id);
-
 	Applicant.remove({_id: req.params.id}, function(){
 		res.redirect('/applicants')
 	})
+})
+
+app.get('/applicant/:id', function(req, res){
+	Applicant.findOne({_id: req.params.id}, function(err, applicant){
+		console.log(applicant);
+		res.render('applicant', {applicant:applicant})
+
+	})
+
 })
 
 // creates and applicant
