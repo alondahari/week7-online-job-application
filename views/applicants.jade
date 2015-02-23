@@ -3,8 +3,8 @@ extends layout
 block content
 	.container
 		h1 Applicants
-		ul#applications.list-unstyled
-			each applicant in applicants
+		each applicant in applicants
+			ul#applications.list-unstyled
 				li Name: #{applicant.name}
 				li Bio: #{applicant.bio}
 				li skills: #{applicant.skills}
