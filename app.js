@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-
+var Controller = require('./controllers/')
 var Applicant = require('./models/applicant')
 
 var app = express();
@@ -9,48 +9,19 @@ app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser());
 
-
-
-app.get('/', function(req, res) {
-	res.render('index');
-});
+app.get('/', Controller.index);
 
 // displays a list of applicants
-app.get('/applicants', function(req, res){
-	Applicant.find({}, function(err, applicants){
-		if (!err) {
-			res.render('applicants', {applicants: applicants})
-		}
-		
-	})
-});
+app.get('/applicants', Controller.applicants);
 
-app.get('/form-submitted', function(req, res){
-	res.render('form-submitted')
-})
+app.get('/form-submitted', Controller.submitForm)
 
-app.get('/delete-applicant/:id', function(req, res){
-	Applicant.remove({_id: req.params.id}, function(){
-		res.redirect('/applicants')
-	})
-})
+app.get('/delete-applicant/:id', Controller.deleteApplicant)
 
-app.get('/applicant/:id', function(req, res){
-	Applicant.findOne({_id: req.params.id}, function(err, applicant){
-		console.log(applicant);
-		res.render('applicant', {applicant:applicant})
+app.get('/applicant/:id', Controller.applicant)
 
-	})
-
-})
-
-// creates and applicant
-app.post('/applicant', function(req, res){
-	var applicant = new Applicant(req.body)
-	applicant.save()
-	res.redirect('/form-submitted');
-
-});
+// creates an applicant
+app.post('/applicant', Controller.createApplication);
 
 var server = app.listen(8441, function() {
 	console.log('Express server listening on port ' + server.address().port);
