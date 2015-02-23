@@ -1,21 +1,15 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose')
+
+var Applicant = require('./models/applicant')
 
 var app = express();
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser());
-mongoose.connect('mongodb://localhost/omega3')
 
-var Applicant = mongoose.model('Applicant', {
-	name: String,
-	bio: String,
-	skills: String,
-	years: Number,
-	why: String
-})
+
 
 app.get('/', function(req, res) {
 	res.render('index');
