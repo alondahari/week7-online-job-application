@@ -9,19 +9,20 @@ app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser());
 
+// home - application form
 app.get('/', Controller.index);
 
-// displays a list of applicants
+// list of applicants
 app.get('/applicants', Controller.applicants);
 
-app.get('/form-submitted', Controller.submitForm)
-
+// remove applicant
 app.get('/delete-applicant/:id', Controller.deleteApplicant)
 
+// show a single applicant
 app.get('/applicant/:id', Controller.applicant)
 
-// creates an applicant
-app.post('/applicant', Controller.createApplication);
+// submit application
+app.post('/submit-application', Controller.submitApplication);
 
 var server = app.listen(8441, function() {
 	console.log('Express server listening on port ' + server.address().port);

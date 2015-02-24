@@ -21,20 +21,16 @@ module.exports = {
 		})
 	},
 
-	createApplication: function(req, res){
+	submitApplication: function(req, res){
 		var applicant = new Applicant(req.body)
 		applicant.save()
-		res.redirect('/form-submitted');
+		res.render('form-submitted')
 	},
 
 	deleteApplicant: function(req, res){
 		Applicant.remove({_id: req.params.id}, function(){
 			res.redirect('/applicants')
 		})
-	},
-
-	submitForm: function(req, res){
-		res.render('form-submitted')
 	}
 
 }
